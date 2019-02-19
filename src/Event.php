@@ -9,6 +9,7 @@
 namespace Oasis\Mlib\Event;
 
 use Oasis\Mlib\ODM\Dynamodb\Annotations\Field AS Field;
+use Oasis\Mlib\ODM\Dynamodb\Annotations\Timestampable as Timestampable;
 
 class Event
 {
