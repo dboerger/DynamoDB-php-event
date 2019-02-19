@@ -21,6 +21,8 @@ class Event
     protected $cancellable = true;
     protected $cancelled   = false;
 
+    protected $timestampable = false;
+
     protected $propogationStopped            = false;
     protected $propogationStoppedImmediately = false;
 
@@ -158,4 +160,11 @@ class Event
         $this->context = $context;
     }
 
+    /**
+     * @return boolean
+     */
+    public function isTimestampable()
+    {
+        return $this->timestampable;
+    }
 }
