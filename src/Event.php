@@ -8,6 +8,8 @@
 
 namespace Oasis\Mlib\Event;
 
+use Oasis\Mlib\ODM\Dynamodb\Annotations\Field AS Field;
+
 class Event
 {
     /** @var EventDispatcherInterface */
@@ -22,6 +24,7 @@ class Event
     protected $cancelled   = false;
 
     protected $timestampable = false;
+    protected $timestamp;
 
     protected $propogationStopped            = false;
     protected $propogationStoppedImmediately = false;
@@ -163,8 +166,36 @@ class Event
     /**
      * @return boolean
      */
-    public function isTimestampable()
+    public function isTimestampable($field)
     {
         return $this->timestampable;
+    }
+
+    /**
+     * @Timestampable(on="ODM_UPDATE")
+     *
+     * @return int
+     */
+    public function isTimestampableUpdate()
+    {
+        $this->timestamp = $this->TimestampableCreateUpdate();
+    }
+
+    /**
+     * @Timestampable(on="ODM_CREATE")
+     *
+     * @return int
+     */
+    public function isTimestampableCreate()
+    {
+        $this->timestamp = $this->TimestampableCreateUpdate();
+    }
+
+    /**
+     * @return int
+     */
+    private function TimestampableCreateUpdate()
+    {
+        return $this->timestamp = time();
     }
 }
